@@ -60,7 +60,7 @@
             <artifactId>druid</artifactId>
             <version>1.1.21</version>
         </dependency>
-            
+
         <!-- 支持jsp的maven依赖 -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -86,6 +86,7 @@
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
             <version>4.2.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -94,18 +95,18 @@
             <version>4.2.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-core</artifactId>
-            <version>4.2.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.querydsl</groupId>-->
+            <!--<artifactId>querydsl-core</artifactId>-->
+            <!--<version>4.2.1</version>-->
+        <!--</dependency>-->
 
-        <!-- 使 Querydsl 支持SQL模式查询 -->
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-sql</artifactId>
-            <version>4.2.0</version>
-        </dependency>
+        <!--&lt;!&ndash; 使 Querydsl 支持SQL模式查询 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.querydsl</groupId>-->
+            <!--<artifactId>querydsl-sql</artifactId>-->
+            <!--<version>4.2.1</version>-->
+        <!--</dependency>-->
 
 
         <!-- FastJson -->
@@ -115,12 +116,13 @@
             <version>1.2.62</version>
         </dependency>
 
-        <!-- lombok -->
+
+        <!-- *********************************以下是一系列工具类的maven依赖********************************* -->
+        <!-- commons-lang3 -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
-            <scope>provided</scope>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
         </dependency>
 
     </dependencies>
@@ -144,12 +146,11 @@
                         </goals>
                         <configuration>
                             <outputDirectory>src/main/java</outputDirectory>
-                            <processor>com.query.apt.jpa.JPAAnnotationProcessor</processor>
+                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

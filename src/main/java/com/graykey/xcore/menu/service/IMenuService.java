@@ -1,5 +1,8 @@
 package com.graykey.xcore.menu.service;
 
+import com.graykey.xcore.menu.module.Menu;
+import com.graykey.xcore.menu.vo.MenuVo;
+
 /**
  * 菜单配置	Service层接口
  *
@@ -24,14 +27,14 @@ public interface IMenuService {
      * @param menuVo
      * @return
      */
-    //Menu saveOrUpdate(MenuVo menuVo);
+    Menu saveOrUpdate(MenuVo menuVo);
 
     /**
      * 删除
      *
      * @param ids
      */
-    //void delete(String ids);
+    void delete(String ids);
 
     /**
      * 分组统计

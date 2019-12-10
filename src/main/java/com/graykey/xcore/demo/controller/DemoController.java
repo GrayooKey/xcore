@@ -27,7 +27,7 @@ import java.util.List;
  * @date 2019-12-09
  */
 @Controller
-@RequestMapping("/subsystem/demo")
+@RequestMapping("/xcore/demo")
 public class DemoController extends BaseController {
 
     @Autowired
@@ -47,7 +47,7 @@ public class DemoController extends BaseController {
     @RequestMapping(value = "/demo_list")
     public String list(HttpSession httpSession, HttpServletRequest request, String menuCode) {
         request.setAttribute("menuCode", menuCode);
-        return "/page/xxx/demo/demo_list";
+        return "/page/xcore/demo/demo_list";
     }
 
     /**
@@ -88,7 +88,7 @@ public class DemoController extends BaseController {
         } else {
             request.setAttribute("demoVo", demoVo);
         }
-        return "/page/xxx/demo/demo_edit";
+        return "/page/xcore/demo/demo_edit";
     }
 
     /**
@@ -128,7 +128,7 @@ public class DemoController extends BaseController {
             BeanUtils.copyProperties(demo, demoVo);
             request.setAttribute("demoVo", demoVo);
         }
-        return "/page/xxx/demo/demo_detail";
+        return "/page/xcore/demo/demo_detail";
     }
 
     /**

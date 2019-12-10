@@ -3,7 +3,7 @@ package com.graykey.xcore.demo.service.impl;
 import com.graykey.xcore.common.chartReport.service.IChartReportService;
 import com.graykey.xcore.demo.dao.IDemoDao;
 import com.graykey.xcore.demo.module.Demo;
-import com.graykey.xcore.demo.module.QDemo;
+
 import com.graykey.xcore.demo.service.IDemoService;
 import com.graykey.xcore.demo.vo.DemoVo;
 import com.querydsl.core.types.Predicate;
@@ -48,8 +48,8 @@ public class DemoServiceImpl implements IDemoService {
 
         PageRequest pageRequest = PageRequest.of(page, limit, Sort.Direction.DESC, "createTime");
 
-        QDemo qDemo = QDemo.demo;
-        Predicate predicate = QDemo.demo.name.like("hehe");
+        //QDemo qDemo = QDemo.demo;
+        //Predicate predicate = QDemo.demo.name.like("hehe");
 
 
 //        QMenu qMenu = QMenu.menu;

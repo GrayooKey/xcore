@@ -2,6 +2,7 @@ package com.graykey.xcore.menu.service.impl;
 
 import com.graykey.xcore.menu.dao.IMenuDao;
 import com.graykey.xcore.menu.module.Menu;
+import com.graykey.xcore.menu.module.QMenu;
 import com.graykey.xcore.menu.service.IMenuService;
 import com.graykey.xcore.menu.vo.MenuVo;
 import com.querydsl.core.types.Predicate;
@@ -9,6 +10,8 @@ import com.querydsl.core.types.Visitor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -45,6 +48,16 @@ public class MenuServiceImpl implements IMenuService {
 //    }
 
     public void queryEntityList(Integer page, Integer limit, MenuVo menuVo) {
+
+        QMenu qMenu = QMenu.menu;
+        qMenu.id.eq("123");
+        Predicate predicate = qMenu.menuName.like("hehe");
+
+        PageRequest pageRequest = PageRequest.of(page, limit, Sort.Direction.DESC, "createTime");
+
+        Page<Menu> menuPage = iMenuDao.findAll(predicate, pageRequest);
+
+
         iMenuDao.findAll(new Predicate() {
             @Override
             public Predicate not() {

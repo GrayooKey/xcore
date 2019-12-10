@@ -2,10 +2,11 @@ package com.graykey.xcore.menu.module;
 
 
 import com.graykey.xcore.common.base.module.BaseModule;
+import com.graykey.xcore.role.roleRight.module.RoleRight;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 菜单配置
@@ -38,8 +39,8 @@ public class Menu extends BaseModule {
     private Integer state;              // 状态          数据字典(menu_state)  1.正常    2.停用    3.维护中   4.研发中   5.后期功能
     private Integer sortNum;            // 排序          自动递增
 
-    //private Set<RoleRight> roleRights = new TreeSet<RoleRight>();
-    //private Set<MenuAttribute> menuAttributes = new TreeSet<MenuAttribute>();
+    private Set<RoleRight> roleRights = new TreeSet<RoleRight>();
+    private Set<MenuAttribute> menuAttributes = new TreeSet<MenuAttribute>();
 
 
     @Column(length = 32)
@@ -108,6 +109,18 @@ public class Menu extends BaseModule {
         return sortNum;
     }
 
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "menu", fetch = FetchType.LAZY)
+    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "urms_cache")
+    public Set<RoleRight> getRoleRights() {
+        return roleRights;
+    }
+
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "menu", fetch = FetchType.LAZY)
+    //@OrderBy("sortNum asc")
+    //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "urms_cache")
+    public Set<MenuAttribute> getMenuAttributes() {
+        return menuAttributes;
+    }
 
     public void setpId(String pId) {
         this.pId = pId;
@@ -179,5 +192,13 @@ public class Menu extends BaseModule {
 
     public void setSortNum(Integer sortNum) {
         this.sortNum = sortNum;
+    }
+
+    public void setRoleRights(Set<RoleRight> roleRights) {
+        this.roleRights = roleRights;
+    }
+
+    public void setMenuAttributes(Set<MenuAttribute> menuAttributes) {
+        this.menuAttributes = menuAttributes;
     }
 }

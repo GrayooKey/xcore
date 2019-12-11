@@ -63,6 +63,7 @@
 
         <!-- 支持jsp的maven依赖 -->
         <dependency>
+            <!-- 支持自定义标签 -->
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>

@@ -44,7 +44,13 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">是否公开</label>
                             <div class="layui-input-block">
-                                <opt:selectLayui dictKey="isNot" name="demoIsOpen" isDefSelect="true"/>
+                                <%--<opt:selectLayui dictKey="isNot" name="demoIsOpen" isDefSelect="true"/>--%>
+
+                                <select id="city" name="city" lay-filter="city" lay-verify="city" lay-verType="city" disabled="disabled">
+                                    <option value="010">北京</option>
+                                    <option value="021" disabled>上海（禁用效果）</option>
+                                    <option value="0571" selected>杭州</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">

@@ -50,6 +50,21 @@
 					<span>智慧铜仁·系统管理</span>
 				</div>
 				<ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+
+
+					<li data-name="home" class="layui-nav-item">
+						<a href="javascript:;" lay-tips="测试" lay-direction="2">
+							<i class="layui-icon layui-icon-home"></i>
+							<cite>测试</cite>
+						</a>
+						<dl class="layui-nav-child">
+							<dd data-name="menu">
+								<a href="javascript:;" lay-href="/xcore/demo/demo_list" lay-ctHref="ct_menu">示例</a>
+							</dd>
+						</dl>
+					</li>
+
+
 					<li data-name="home" class="layui-nav-item">
 						<a href="javascript:;" lay-tips="系统管理" lay-direction="2">
 							<i class="layui-icon layui-icon-home"></i>

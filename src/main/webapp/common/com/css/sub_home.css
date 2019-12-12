@@ -1,0 +1,11 @@
+/**
+* 子系统区域选择样式
+ */
+.alone{text-align: center;background-color: #009688;color: #fff;font-weight: 300;transition: all .3s;-webkit-transition: all .3s;}
+.alone:hover{background-color: #5FB878;}
+.alone a{display: block;padding: 50px 20px;color: #fff;font-size: 30px;}
+.alone a cite{display: block; padding-top: 10px; font-size: 14px;}
+.blone{text-align: center;background-color: #aba4a4;color: #fff;font-weight: 300;transition: all .3s;-webkit-transition: all .3s;}
+.blone a{display: block;padding: 50px 20px;color: #fff;font-size: 30px;}
+.blone a cite{display: block; padding-top: 10px; font-size: 14px;}
+.layui-col-space1>* {padding: 5px;}

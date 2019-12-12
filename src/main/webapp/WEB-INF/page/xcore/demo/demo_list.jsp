@@ -16,7 +16,7 @@
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <%-- 数据统计 --%>
-        <div class="layui-col-md12">
+        <%--<div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-header">统计区域</div>
                 <div class="layui-card-body">
@@ -27,46 +27,25 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
         <div class="layui-col-md12">
             <div class="layui-card">
                 <%-- 查询搜索表单 --%>
                 <form class="layui-form layui-card-header layuiadmin-card-header-auto" id="ct_baseForm_list">
                     <div class="layui-form-item">
-
                         <div class="layui-inline">
-                            <label class="layui-form-label">例子名称</label>
+                            <label class="layui-form-label">名称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="demoName" autocomplete="off" class="layui-input">
+                                <input type="text" name="name" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">是否公开</label>
+                        <%--<div class="layui-inline">
+                            <label class="layui-form-label">类型</label>
                             <div class="layui-input-block">
-                                <%--<opt:selectLayui dictKey="isNot" name="demoIsOpen" isDefSelect="true"/>--%>
-
-                                <select id="city" name="city" lay-filter="city" lay-verify="city" lay-verType="city" disabled="disabled">
-                                    <option value="010">北京</option>
-                                    <option value="021" disabled>上海（禁用效果）</option>
-                                    <option value="0571" selected>杭州</option>
-                                </select>
+                                <opt:selectLayui dictKey="isNot" name="number" isDefSelect="true"/>
                             </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">使用时间开始</label>
-                            <div class="layui-input-block">
-                                <input type="text" id="demoUseTimeStart" name="demoUseTimeStart" autocomplete="off"
-                                       class="layui-input"/>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">使用时间结束</label>
-                            <div class="layui-input-block">
-                                <input type="text" id="demoUseTimeEnd" name="demoUseTimeEnd" autocomplete="off"
-                                       class="layui-input"/>
-                            </div>
-                        </div>
+                        </div>--%>
 
                         <div class="layui-inline">
                             <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="ct_baseForm_search">
@@ -106,21 +85,7 @@
 </div>
 
 <script type="text/javascript">
-    var urlStr = "/subsystem/demo/demo";
-
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        laydate.render({
-            elem: '#demoUseTimeStart',
-            trigger: 'click'
-        });
-        laydate.render({
-            elem: '#demoUseTimeEnd',
-            trigger: 'click'
-        });
-
-    });
+    var urlStr = "/xcore/demo/demo";
 
     function renderTable(table) {
         //方法级渲染
@@ -134,26 +99,17 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {title: "序号", type: 'numbers', fixed: 'left', width: 50},
-
-                {title: "例子名称", fixed: 'left', field: "demoName", align: "center", width: 260},
-                {title: "价值", field: "demoValuation", align: "center"},
-                {title: "排序", field: "demoOrder", align: "center"},
-                {
-                    title: "使用时间", field: "demoUseTime", align: "center", templet: function (obj) {
+                {title: "名称", fixed: 'left', field: "name", align: "center", width: 260},
+                {title: "价值", field: "money", align: "center"},
+                {title: "时间", field: "time", align: "center", templet: function (obj) {
                         return obj.demoUseTime != null ? layui.util.toDateString(obj.demoUseTime.time, "yyyy-MM-dd") : "";
                     }
-                },
-                {
-                    title: "是否公开",
-                    fixed: 'right',
-                    field: "demoIsOpen",
-                    align: "center",
-                    width: 120,
-                    templet: function (obj) {
-                        return changeDataDictByKey("isNot", obj.demoIsOpen);
+                 },
+                {title: "类型", fixed: 'right', field: "number", align: "center", width: 120, templet: function (obj) {
+                        //return changeDataDictByKey("isNot", obj.demoIsOpen);
+                        return obj.number;
                     }
                 },
-
                 {title: "操作", fixed: 'right', align: 'center', unresize: 'true', toolbar: ctRowToolBar, width: 140}
             ]]
         });

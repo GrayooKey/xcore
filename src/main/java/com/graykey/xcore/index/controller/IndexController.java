@@ -21,12 +21,12 @@ public class IndexController {
     @RequestMapping(value = "/")
     public String test(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("time", new Date());
-        return "page/index/index";
+        return "/page/index/index";
     }
 
     @RequestMapping(value = "/index")
     public String index(HttpServletRequest request, HttpServletResponse response) {
-        return "page/index";
+        return "/page/index";
     }
 
 }

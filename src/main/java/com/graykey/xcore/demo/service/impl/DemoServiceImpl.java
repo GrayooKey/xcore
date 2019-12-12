@@ -1,17 +1,14 @@
 package com.graykey.xcore.demo.service.impl;
 
 import com.graykey.xcore.common.chartReport.service.IChartReportService;
+import com.graykey.xcore.common.utils.helper.Pager;
 import com.graykey.xcore.demo.dao.IDemoDao;
 import com.graykey.xcore.demo.module.Demo;
-
 import com.graykey.xcore.demo.service.IDemoService;
 import com.graykey.xcore.demo.vo.DemoVo;
-import com.querydsl.core.types.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,25 +30,25 @@ public class DemoServiceImpl implements IDemoService {
     private IChartReportService chartReportServiceImpl;
 
 
-//    @Override
-//    public Pager queryEntityList(Integer page, Integer limit, DemoVo demoVo) {
-//        List<Criterion> criterionList = new ArrayList<>();
+
+
+    @Override
+    public Pager queryEntityList(Integer page, Integer limit, DemoVo demoVo) {
+
+        //new JPAQueryFactory()
+
+        return null;
+    }
+
+
+//    public void queryEntityList(Integer page, Integer limit, DemoVo demoVo) {
 //
-//        if (StringUtils.isNotBlank(demoVo.getDataAreaCode())) {
-//            criterionList.add(Restrictions.like("dataAreaCode", demoVo.getDataAreaCode(), MatchMode.START));
-//        }
+//        PageRequest pageRequest = PageRequest.of(page, limit, Sort.Direction.DESC, "createTime");
+//
+//        QDemo qDemo = QDemo.demo;
+//        Predicate predicate = QDemo.demo.name.like("hehe");
 //
 //
-//        return this.demoDaoImpl.queryEntityList(page, limit, criterionList, Order.desc("createTime"), Demo.class);
-//    }
-    public void queryEntityList(Integer page, Integer limit, DemoVo demoVo) {
-
-        PageRequest pageRequest = PageRequest.of(page, limit, Sort.Direction.DESC, "createTime");
-
-        //QDemo qDemo = QDemo.demo;
-        //Predicate predicate = QDemo.demo.name.like("hehe");
-
-
 //        QMenu qMenu = QMenu.menu;
 //        qMenu.id.eq("123");
 //        Predicate predicate = qMenu.menuName.like("hehe");
@@ -59,7 +56,7 @@ public class DemoServiceImpl implements IDemoService {
 //        PageRequest pageRequest = PageRequest.of(page, limit, Sort.Direction.DESC, "createTime");
 //
 //        Page<Menu> menuPage = iMenuDao.findAll(predicate, pageRequest);
-    }
+//    }
 
     @Override
     public Demo saveOrUpdate(DemoVo demoVo) {

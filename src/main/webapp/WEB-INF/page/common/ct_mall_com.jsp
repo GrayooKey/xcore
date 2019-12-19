@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/common/plugins/blueimp/css/blueimp-gallery.min.css" type="text/css">
     <script src="/common/plugins/blueimp/js/jquery.blueimp-gallery.min.js"></script>
 
+    <%-- 公用样式 --%>
     <style>
         <%-- 列表页面下拉框样式 (使 下拉框宽度 和 普通输入框 一致) --%>
         .layui-form-select .layui-input {

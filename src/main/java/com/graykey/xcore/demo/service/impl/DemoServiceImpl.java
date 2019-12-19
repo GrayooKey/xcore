@@ -1,7 +1,6 @@
 package com.graykey.xcore.demo.service.impl;
 
 import com.graykey.xcore.common.chartReport.service.IChartReportService;
-import com.graykey.xcore.common.utils.helper.Pager;
 import com.graykey.xcore.demo.dao.IDemoDao;
 import com.graykey.xcore.demo.module.Demo;
 import com.graykey.xcore.demo.service.IDemoService;
@@ -9,8 +8,19 @@ import com.graykey.xcore.demo.vo.DemoVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +40,70 @@ public class DemoServiceImpl implements IDemoService {
     private IChartReportService chartReportServiceImpl;
 
 
+    @PersistenceContext
+    private EntityManager em;
 
 
     @Override
-    public Pager queryEntityList(Integer page, Integer limit, DemoVo demoVo) {
+    public Page queryEntityList(Integer page, Integer size, DemoVo demoVo) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.Direction.DESC, "createTime");
 
-        //new JPAQueryFactory()
+        // 方法一: JPA 分页, 持久层接口需继承 JpaRepository<T, ID> 和 JpaSpecificationExecutor<T> 接口
+        Page<Demo> pager = iDemoDao.findAll(new Specification<Demo>() {
+            @Override
+            public Predicate toPredicate(Root<Demo> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                ArrayList<Predicate> predicateList = new ArrayList<>();
+                if (StringUtils.isNotBlank(demoVo.getName())) {
+                    predicateList.add(criteriaBuilder.like(root.get("name").as(String.class), demoVo.getName().trim()));
+                }
+                if (demoVo.getNumber() != null) {
+                    predicateList.add(criteriaBuilder.equal(root.get("number").as(Integer.class), demoVo.getNumber()));
+                }
+                Predicate[] p = new Predicate[predicateList.size()];
+                return criteriaBuilder.and(predicateList.toArray(p));
+            }
+        }, PageRequest.of(page - 1, size, Sort.Direction.DESC, "createTime"));
 
-        return null;
+
+        //用lambda表达式简化代码
+        Page<Demo> pager1 = iDemoDao.findAll((root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicateList = new ArrayList<>();
+
+            //模糊查询
+            if (StringUtils.isNotBlank(demoVo.getName())) {
+                predicateList.add(criteriaBuilder.like(root.get("name"), "%" + demoVo.getName().trim() + "%"));
+            }
+            //精确查询
+            if (null != demoVo.getNumber()) {
+                predicateList.add(criteriaBuilder.equal(root.get("number"), demoVo.getNumber()));
+            }
+
+            return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+        }, pageable);
+
+        return pager1;
+
+/*
+        // 方法二: JPA + queryDSL 分页, 持久层接口需继承 JpaRepository<T, ID> 和 QuerydslPredicateExecutor<T> 接口
+        QDemo qDemo = QDemo.demo;
+        List<com.querydsl.core.types.Predicate> predicateList = new ArrayList<>();
+        com.querydsl.core.types.Predicate predicate = qDemo.name.eq(demoVo.getName().trim());
+        if (StringUtils.isNotBlank(demoVo.getName())) {
+            qDemo.name.like(demoVo.getName().trim());
+        }
+        if (demoVo.getNumber() != null) {
+            qDemo.number.eq(demoVo.getNumber());
+        }
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.Direction.DESC, "createTime");
+        Page<Demo> all = iDemoDao.findAll(predicate, pageRequest);
+
+        // 方法三: JPA + queryDSL 分页, 持久层接口需继承 JpaRepository<T, ID> 和 QuerydslPredicateExecutor<T> 接口, 还需要注入 EntityManager
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        JPAQuery<Demo> jpaQuery = queryFactory.select(QDemo.demo).from(QDemo.demo).where(predicate).offset(pageRequest.getOffset()).limit(pageRequest.getPageSize());
+        QueryResults<Demo> result = jpaQuery.fetchResults();
+        result.getTotal();
+        List<Demo> list = result.getResults();
+*/
     }
 
 

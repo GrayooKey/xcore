@@ -1,8 +1,8 @@
 package com.graykey.xcore.demo.service;
 
-import com.graykey.xcore.common.utils.helper.Pager;
 import com.graykey.xcore.demo.module.Demo;
 import com.graykey.xcore.demo.vo.DemoVo;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -18,11 +18,11 @@ public interface IDemoService {
      * 分页
      *
      * @param page
-     * @param limit
+     * @param size
      * @param demoVo
      * @return
      */
-    Pager queryEntityList(Integer page, Integer limit, DemoVo demoVo);
+    Page queryEntityList(Integer page, Integer size, DemoVo demoVo);
 
     /**
      * 保存or更新

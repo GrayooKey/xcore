@@ -63,18 +63,14 @@
                             <%-- 头工具栏 --%>
                             <script type="text/html" id="ct_baseTable_toolbar_head">
                                 <div class="layui-btn-container">
-                                    <button class="layui-btn layui-btn-sm" lay-event="ct_head_add" title="添加"><i
-                                            class="layui-icon layui-icon-add-1"></i></button>
-                                    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="ct_head_del"
-                                            title="删除"><i class="layui-icon layui-icon-delete"></i></button>
+                                    <button class="layui-btn layui-btn-sm" lay-event="ct_head_add" title="添加"><i class="layui-icon layui-icon-add-1"></i></button>
+                                    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="ct_head_del" title="删除"><i class="layui-icon layui-icon-delete"></i></button>
                                 </div>
                             </script>
                             <%-- 行工具栏 --%>
                             <script type="text/html" id="ct_baseTable_toolbar_row">
-                                <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="ct_row_detail" title="详情"><i
-                                        class="layui-icon layui-icon-search"></i></a>
-                                <a class="layui-btn layui-btn-xs" lay-event="ct_row_edit" title="编辑"><i
-                                        class="layui-icon layui-icon-edit"></i></a>
+                                <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="ct_row_detail" title="详情"><i class="layui-icon layui-icon-search"></i></a>
+                                <a class="layui-btn layui-btn-xs" lay-event="ct_row_edit" title="编辑"><i class="layui-icon layui-icon-edit"></i></a>
                             </script>
                         </div>
                     </div>
@@ -102,9 +98,9 @@
                 {title: "名称", fixed: 'left', field: "name", align: "center", width: 260},
                 {title: "价值", field: "money", align: "center"},
                 {title: "时间", field: "time", align: "center", templet: function (obj) {
-                        return obj.demoUseTime != null ? layui.util.toDateString(obj.demoUseTime.time, "yyyy-MM-dd") : "";
+                        return obj.time != null ? layui.util.toDateString(obj.time.time, "yyyy-MM-dd") : "";
                     }
-                 },
+                },
                 {title: "类型", fixed: 'right', field: "number", align: "center", width: 120, templet: function (obj) {
                         //return changeDataDictByKey("isNot", obj.demoIsOpen);
                         return obj.number;

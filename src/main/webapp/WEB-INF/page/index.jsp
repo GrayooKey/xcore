@@ -46,7 +46,7 @@
 		<!-- 侧边菜单 -->
 		<div class="layui-side layui-side-menu">
 			<div class="layui-side-scroll">
-				<div class="layui-logo" lay-href="/urms/indexHome">
+				<div class="layui-logo" lay-href="/">
 					<span>智慧铜仁·系统管理</span>
 				</div>
 				<ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
@@ -210,7 +210,7 @@
 			</div>
 			<div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
 				<ul class="layui-tab-title" id="LAY_app_tabsheader">
-					<li lay-id="/urms/indexHome" lay-attr="/urms/indexHome" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+					<li lay-id="/" lay-attr="/" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
 				</ul>
 			</div>
 		</div>
@@ -218,7 +218,7 @@
 		<!-- 主体内容 -->
 		<div class="layui-body" id="LAY_app_body">
 			<div class="layadmin-tabsbody-item layui-show">
-				<iframe src="/urms/indexHome" frameborder="0" class="layadmin-iframe"></iframe>
+				<iframe src="/" frameborder="0" class="layadmin-iframe"></iframe>
 			</div>
 		</div>
 

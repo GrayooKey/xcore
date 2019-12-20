@@ -28,9 +28,9 @@ public class BaseModule {
 
 
     @Id
-    @GeneratedValue(generator = "paymentableGenerator")
-    @GenericGenerator(name = "paymentableGenerator", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(nullable = false, length = 32)
+    @GeneratedValue(generator = "hibernate-uuid")
+    @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
+    @Column(nullable = false, length = 36)
     public String getId() {
         return id;
     }

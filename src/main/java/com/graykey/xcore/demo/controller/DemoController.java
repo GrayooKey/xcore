@@ -4,7 +4,6 @@ package com.graykey.xcore.demo.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.graykey.xcore.common.base.controller.BaseController;
-import com.graykey.xcore.demo.dao.IDemoDao;
 import com.graykey.xcore.demo.module.Demo;
 import com.graykey.xcore.demo.service.IDemoService;
 import com.graykey.xcore.demo.vo.DemoVo;
@@ -33,8 +32,6 @@ public class DemoController extends BaseController {
 
     @Autowired
     private IDemoService demoServiceImpl;
-    @Autowired
-    private IDemoDao iDemoDao;
 
 
     /**
@@ -63,7 +60,7 @@ public class DemoController extends BaseController {
     @RequestMapping(value = "/demo_load")
     public void load(HttpSession httpSession, HttpServletResponse response, Integer page, Integer limit, DemoVo demoVo) {
         Page pager = this.demoServiceImpl.queryEntityList(page, limit, demoVo);
-        getPageResult(response, pager, null);
+        this.getPageResult(response, pager, null);
     }
 
     /**
@@ -77,8 +74,7 @@ public class DemoController extends BaseController {
     @RequestMapping(value = "/demo_edit")
     public String edit(HttpSession httpSession, HttpServletRequest request, DemoVo demoVo) {
         if (StringUtils.isNotBlank(demoVo.getId())) {
-            //Demo demo = this.demoServiceImpl.getEntityById(Demo.class, demoVo.getId());
-            Demo demo = this.iDemoDao.getOne(demoVo.getId());
+            Demo demo = this.demoServiceImpl.getEntityById(demoVo.getId());
             BeanUtils.copyProperties(demo, demoVo);
             request.setAttribute("demoVo", demoVo);
         } else {
@@ -118,8 +114,7 @@ public class DemoController extends BaseController {
     @RequestMapping(value = "/demo_detail")
     public String detail(HttpServletRequest request, String id) {
         if (StringUtils.isNotBlank(id)) {
-            //Demo demo = this.demoServiceImpl.getEntityById(Demo.class, id);
-            Demo demo = this.iDemoDao.getOne(id);
+            Demo demo = this.demoServiceImpl.getEntityById(id);
             DemoVo demoVo = new DemoVo();
             BeanUtils.copyProperties(demo, demoVo);
             request.setAttribute("demoVo", demoVo);

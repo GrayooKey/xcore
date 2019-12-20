@@ -49,7 +49,7 @@ public class DemoServiceImpl implements IDemoService {
         Pageable pageable = PageRequest.of(page - 1, size, Sort.Direction.DESC, "createTime");
 
         // 方法一: JPA 分页, 持久层接口需继承 JpaRepository<T, ID> 和 JpaSpecificationExecutor<T> 接口
-        Page<Demo> pager = iDemoDao.findAll(new Specification<Demo>() {
+        Page<Demo> pager = this.iDemoDao.findAll(new Specification<Demo>() {
             @Override
             public Predicate toPredicate(Root<Demo> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 ArrayList<Predicate> predicateList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class DemoServiceImpl implements IDemoService {
 
 
         //用lambda表达式简化代码
-        Page<Demo> pager1 = iDemoDao.findAll((root, criteriaQuery, criteriaBuilder) -> {
+        Page<Demo> pager1 = this.iDemoDao.findAll((root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicateList = new ArrayList<>();
 
             //模糊查询
@@ -95,7 +95,7 @@ public class DemoServiceImpl implements IDemoService {
             qDemo.number.eq(demoVo.getNumber());
         }
         PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.Direction.DESC, "createTime");
-        Page<Demo> all = iDemoDao.findAll(predicate, pageRequest);
+        Page<Demo> all = this.iDemoDao.findAll(predicate, pageRequest);
 
         // 方法三: JPA + queryDSL 分页, 持久层接口需继承 JpaRepository<T, ID> 和 QuerydslPredicateExecutor<T> 接口, 还需要注入 EntityManager
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
@@ -129,9 +129,9 @@ public class DemoServiceImpl implements IDemoService {
         Demo demo = new Demo();
         BeanUtils.copyProperties(demoVo, demo);
         if (StringUtils.isBlank(demo.getId())) {
-            iDemoDao.save(demo);
+            this.iDemoDao.save(demo);
         } else {
-            iDemoDao.save(demo);
+            this.iDemoDao.save(demo);
         }
         return demo;
     }
@@ -140,8 +140,7 @@ public class DemoServiceImpl implements IDemoService {
     public void delete(String ids) {
         String[] idz = ids.split(",");
         for (int i = 0; i < idz.length; i++) {
-            Demo demo = iDemoDao.getOne(idz[i]);
-            iDemoDao.delete(demo);
+            this.iDemoDao.deleteById(idz[i]);
         }
     }
 
@@ -179,6 +178,17 @@ public class DemoServiceImpl implements IDemoService {
 //        return arrayList;
 
         return new ArrayList<>();
+    }
+
+
+    @Override
+    public Demo getEntityById(String id) {
+        return this.iDemoDao.getOne(id);
+    }
+
+    @Override
+    public <T> T getBaseModuleValue(T entity, Class<T> entityClass, String id) {
+        return null;
     }
 
 }

@@ -101,10 +101,10 @@
                         return obj.time != null ? layui.util.toDateString(obj.time.time, "yyyy-MM-dd") : "";
                     }
                 },
-                {title: "类型", fixed: 'right', field: "number", align: "center", width: 120, templet: function (obj) {
+                {title: "类型", fixed: 'right', field: "number", align: "center", width: 120/*, templet: function (obj) {
                         //return changeDataDictByKey("isNot", obj.demoIsOpen);
-                        return obj.number;
-                    }
+                        return typeof (obj.number) != "undefined" ? obj.number : "";
+                    }*/
                 },
                 {title: "操作", fixed: 'right', align: 'center', unresize: 'true', toolbar: ctRowToolBar, width: 140}
             ]]

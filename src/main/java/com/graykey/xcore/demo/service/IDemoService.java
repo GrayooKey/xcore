@@ -47,4 +47,23 @@ public interface IDemoService {
      */
     List<List> queryBaseCount(DemoVo demoVo);
 
+
+    /**
+     * 根据ID查询实体对象
+     *
+     * @param id
+     * @return
+     */
+    Demo getEntityById(String id);
+
+    /**
+     * 更新实体时设置基础值
+     *
+     * @param entity 要更新的实体
+     * @param entityClass 实体对象.class
+     * @param id 要更新的实体id
+     * @return
+     */
+    <T> T getBaseModuleValue(T entity, Class<T> entityClass, String id);
+
 }

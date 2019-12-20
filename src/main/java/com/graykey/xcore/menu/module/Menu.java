@@ -39,8 +39,8 @@ public class Menu extends BaseModule {
     private Integer state;              // 状态          数据字典(menu_state)  1.正常    2.停用    3.维护中   4.研发中   5.后期功能
     private Integer sortNum;            // 排序          自动递增
 
-    private Set<RoleRight> roleRights = new TreeSet<RoleRight>();
-    private Set<MenuAttribute> menuAttributes = new TreeSet<MenuAttribute>();
+    private Set<RoleRight> roleRights = new TreeSet<>();
+    private Set<MenuAttribute> menuAttributes = new TreeSet<>();
 
 
     @Column(length = 32)

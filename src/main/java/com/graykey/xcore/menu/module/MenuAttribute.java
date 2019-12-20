@@ -1,10 +1,12 @@
 package com.graykey.xcore.menu.module;
 
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import com.graykey.xcore.role.role.module.Role;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 菜单功能
@@ -15,7 +17,7 @@ import javax.persistence.*;
 @Entity
 @org.hibernate.annotations.Table(comment = "菜单功能", appliesTo = "core_menu_attribute")
 @Table(name = "core_menu_attribute")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "urms_cache")
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "urms_cache")
 public class MenuAttribute {
 
     private String id;                  // 主键           UUID
@@ -32,13 +34,13 @@ public class MenuAttribute {
     private Integer sortNum;            // 排序           自动递增
 
     private Menu menu;
-    //private Set<Role> roles = new TreeSet<Role>();
+    private Set<Role> roles = new TreeSet<>();
 
 
     @Id
-    @GeneratedValue(generator = "paymentableGenerator")
-    @GenericGenerator(name = "paymentableGenerator", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(nullable = false, length = 32)
+    @GeneratedValue(generator = "hibernate-uuid")
+    @GenericGenerator(name = "hibernate-uuid", strategy = "uuid2")
+    @Column(nullable = false, length = 36)
     public String getId() {
         return id;
     }
@@ -81,10 +83,18 @@ public class MenuAttribute {
     public Integer getSortNum() {
         return sortNum;
     }
+
     @ManyToOne(cascade={CascadeType.MERGE})
     @JoinColumn(name="menuId")
     public Menu getMenu() {
         return menu;
+    }
+
+    @ManyToMany(cascade={CascadeType.REFRESH})
+    @JoinTable(name = "um_role_menu_attribute", joinColumns = { @JoinColumn(name = "menuAttributeId") }, inverseJoinColumns = { @JoinColumn(name = "roleId") })
+    //@Cache(usage=CacheConcurrencyStrategy.READ_WRITE,region="urms_cache")
+    public Set<Role> getRoles() {
+        return roles;
     }
 
 
@@ -138,5 +148,9 @@ public class MenuAttribute {
 
     public void setMenu(Menu menu) {
         this.menu = menu;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

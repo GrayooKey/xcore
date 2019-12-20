@@ -3,6 +3,7 @@ package com.graykey.xcore.menu.dao;
 
 import com.graykey.xcore.menu.module.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,5 @@ import org.springframework.stereotype.Repository;
  * @date 2019-12-05
  */
 @Repository("iMenuDao")
-public interface IMenuDao extends JpaRepository<Menu, String>, QuerydslPredicateExecutor<Menu> {
-
+public interface IMenuDao extends JpaRepository<Menu, String>, JpaSpecificationExecutor<Menu>, QuerydslPredicateExecutor<Menu> {
 }

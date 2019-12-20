@@ -22,6 +22,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -131,6 +132,7 @@ public class DemoServiceImpl implements IDemoService {
         if (StringUtils.isBlank(demo.getId())) {
             this.iDemoDao.save(demo);
         } else {
+            demo = this.getBaseModuleValue(demo);
             this.iDemoDao.save(demo);
         }
         return demo;
@@ -187,8 +189,14 @@ public class DemoServiceImpl implements IDemoService {
     }
 
     @Override
-    public <T> T getBaseModuleValue(T entity, Class<T> entityClass, String id) {
-        return null;
+    public Demo getBaseModuleValue(Demo demo) {
+        Demo old = this.iDemoDao.getOne(demo.getId());
+        demo.setCreateTime(old.getCreateTime());
+        demo.setUpdateTime(new Date());
+        demo.setCreatorId(old.getCreatorId());
+        demo.setCreatorName(old.getCreatorName());
+        // TODO 更新修改人id 得等到做完用户登录的时候从session中获取当前用户ID  -- demo.getModifierId();
+        return demo;
     }
 
 }

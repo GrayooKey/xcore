@@ -59,11 +59,9 @@ public interface IDemoService {
     /**
      * 更新实体时设置基础值
      *
-     * @param entity 要更新的实体
-     * @param entityClass 实体对象.class
-     * @param id 要更新的实体id
+     * @param demo 要更新的实体
      * @return
      */
-    <T> T getBaseModuleValue(T entity, Class<T> entityClass, String id);
+    Demo getBaseModuleValue(Demo demo);
 
 }

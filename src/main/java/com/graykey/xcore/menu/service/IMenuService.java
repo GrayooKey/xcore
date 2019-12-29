@@ -110,6 +110,7 @@ public interface IMenuService {
      */
     MenuAttribute getMenuAttributeById(String id);
 
+
     /**
      * 更新实体时设置基础值   菜单
      *
@@ -117,13 +118,5 @@ public interface IMenuService {
      * @return
      */
     Menu getBaseModuleValue(Menu menu);
-
-    /**
-     * 更新实体时设置基础值   菜单功能
-     *
-     * @param menuAttribute 要更新的实体
-     * @return
-     */
-    MenuAttribute getBaseModuleValue(MenuAttribute menuAttribute);
 
 }

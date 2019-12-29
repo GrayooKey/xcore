@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
+import com.graykey.xcore.user.module.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -31,7 +32,7 @@ public class BaseController {
     @Resource
     private HttpServletResponse response;
     @Resource
-    private HttpSession httpSession;
+    private HttpSession session;
 
 
     /**
@@ -71,14 +72,14 @@ public class BaseController {
     }
 
 
-
     /**
      * 获得当前session User对象
      * @return user对象
      */
-//    public User getSessionUser(){
-//        return (User)this.getHttpSession().getAttribute("user");
-//    }
+    public User getSessionUser(){
+        return (User)this.getSession().getAttribute("user");
+    }
+
 
     public HttpServletRequest getRequest() {
         return request;
@@ -92,10 +93,10 @@ public class BaseController {
     public void setResponse(HttpServletResponse response) {
         this.response = response;
     }
-    public HttpSession getHttpSession() {
-        return httpSession;
+    public HttpSession getSession() {
+        return session;
     }
-    public void setHttpSession(HttpSession httpSession) {
-        this.httpSession = httpSession;
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
 }

@@ -8,6 +8,7 @@ import com.graykey.xcore.menu.service.IMenuService;
 import com.graykey.xcore.menu.vo.MenuAttributeVo;
 import com.graykey.xcore.menu.vo.MenuVo;
 import com.graykey.xcore.role.role.module.Role;
+import com.graykey.xcore.role.roleRight.dao.IRoleRightDao;
 import com.graykey.xcore.role.roleRight.module.RoleRight;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -38,6 +39,8 @@ public class MenuServiceImpl implements IMenuService {
     private IMenuDao iMenuDao;
     @Autowired
     private IMenuAttributeDao iMenuAttributeDao;
+    @Autowired
+    private IRoleRightDao iRoleRightDao;
 
 
     @Override
@@ -141,27 +144,31 @@ public class MenuServiceImpl implements IMenuService {
             }
 
             Menu menu = this.iMenuDao.getOne(idz[i]);
+            //菜单的父节点id
             String pid = menu.getpId();
-            //先删除菜单权限数据
+
+            //删除菜单 关联的角色权限数据
             if(menu.getRoleRights() != null && menu.getRoleRights().size() > 0){
                 for (RoleRight rr : menu.getRoleRights()) {
-                    //this.menuDaoImpl.delete(rr);
+                    this.iRoleRightDao.delete(rr);
                 }
             }
-            //删除菜单功能数据
+            //删除菜单 关联的菜单功能数据
             if(menu.getMenuAttributes() != null && menu.getMenuAttributes().size() > 0){
                 for (MenuAttribute ma : menu.getMenuAttributes()) {
-                    //this.menuDaoImpl.delete(ma);
+                    this.iMenuAttributeDao.delete(ma);
                 }
             }
+            //删除菜单
             this.iMenuDao.delete(menu);
 
             //修改父节点
             MenuVo menuVo = new MenuVo();
             menuVo.setpId(pid);
             List<Menu> list = this.queryEntityList(menuVo);
+            //父节点下是否还有子节点
             if(list.isEmpty()){
-                Menu pmenu = this.getEntityById(pid);
+                Menu pmenu = this.iMenuDao.getOne(pid);
                 pmenu.setIsLeaf(1);
                 this.iMenuDao.save(pmenu);
             }
@@ -170,21 +177,57 @@ public class MenuServiceImpl implements IMenuService {
 
     @Override
     public void deleteAttr(String ids) {
-
+        if(StringUtils.isNotBlank(ids)){
+            String[] idz = ids.split(",");
+            for (int i = 0; i < idz.length; i++) {
+                this.iMenuAttributeDao.deleteById(idz[i]);
+            }
+        }
     }
 
     @Override
     public List<Menu> queryEntityList(MenuVo menuVo) {
-        return null;
+        return this.iMenuDao.findAll(((root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicateList = new ArrayList<>();
+            if (StringUtils.isNotBlank(menuVo.getId())) {
+                predicateList.add(criteriaBuilder.equal(root.get("id"), menuVo.getId().trim()));
+            }
+            if (StringUtils.isNotBlank(menuVo.getpId())) {
+                predicateList.add(criteriaBuilder.equal(root.get("pId"), menuVo.getpId().trim()));
+            }
+            if (null != menuVo.getMenuLevel()) {
+                predicateList.add(criteriaBuilder.equal(root.get("menuLevel"), menuVo.getMenuLevel()));
+            }
+            if (null != menuVo.getState()) {
+                predicateList.add(criteriaBuilder.equal(root.get("state"), menuVo.getState()));
+            }
+            return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+        }), Sort.by(Sort.Direction.ASC, "sortNum"));
     }
 
     @Override
     public List<MenuAttribute> queryMenuAttributeList(String menuId, MenuAttributeVo menuAttributeVo) {
-        return null;
+        return this.iMenuAttributeDao.findAll(((root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicateList = new ArrayList<>();
+            //菜单ID
+            predicateList.add(criteriaBuilder.equal(root.get("menu.id"), menuId));
+            if (null != menuAttributeVo.getState()) {
+                predicateList.add(criteriaBuilder.equal(root.get("state"), menuAttributeVo.getState()));
+            }
+            return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+        }), Sort.by(Sort.Direction.ASC, "sortNum"));
     }
 
     @Override
     public Menu getMenuByMenuCode(String menuCode) {
+        List<Menu> menuList = this.iMenuDao.findAll(((root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicateList = new ArrayList<>();
+            predicateList.add(criteriaBuilder.equal(root.get("menuCode"), menuCode));
+            return criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+        }));
+        if(menuList != null && menuList.size() > 0){
+            return  menuList.get(0);
+        }
         return null;
     }
 
@@ -196,7 +239,7 @@ public class MenuServiceImpl implements IMenuService {
 
     @Override
     public MenuAttribute getMenuAttributeById(String id) {
-        return null;
+        return this.iMenuAttributeDao.getOne(id);
     }
 
     @Override
@@ -208,11 +251,6 @@ public class MenuServiceImpl implements IMenuService {
         menu.setCreatorName(old.getCreatorName());
         // TODO 更新修改人id 得等到做完用户登录的时候从session中获取当前用户ID  -- menu.getModifierId();
         return menu;
-    }
-
-    @Override
-    public MenuAttribute getBaseModuleValue(MenuAttribute menuAttribute) {
-        return null;
     }
 
 }

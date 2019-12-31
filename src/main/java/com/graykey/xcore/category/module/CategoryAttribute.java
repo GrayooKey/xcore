@@ -26,7 +26,7 @@ public class CategoryAttribute {
     @Id
     @GeneratedValue(generator = "paymentableGenerator")
     @GenericGenerator(name = "paymentableGenerator", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 36)
     public String getId() {
         return id;
     }

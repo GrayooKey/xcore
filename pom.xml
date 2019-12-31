@@ -27,7 +27,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Test测试 -->
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -54,13 +54,6 @@
             <version>8.0.18</version>
             <scope>runtime</scope>
         </dependency>
-
-        <!-- 数据库连接池 Druid -->
-        <!--<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.21</version>
-        </dependency>-->
 
         <!-- 支持jsp的maven依赖 -->
         <dependency>
@@ -110,11 +103,11 @@
         </dependency>
 
         <!-- slf4j 记录日志 -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>2.0.0-alpha1</version>
-        </dependency>
+        </dependency>-->
 
 
 

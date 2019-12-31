@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * D
+ * 角色信息
  *
  * @author xuezb
  * @date 2019-12-07

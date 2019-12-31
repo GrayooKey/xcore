@@ -465,10 +465,11 @@ MenuController extends BaseController {
     /**
      * 根据菜单id 获得当前新增菜单功能排序
      *
+     * @param response
      * @param menuId 菜单id
      */
     @RequestMapping(value = "/menuAttribute_getSortNum")
-    public void getmenuAttributeSortNum(String menuId){
+    public void getmenuAttributeSortNum(HttpServletResponse response, String menuId){
         JSONObject json = new JSONObject();
         if (StringUtils.isNotBlank(menuId)) {
             int sortNum = 1;
@@ -487,10 +488,11 @@ MenuController extends BaseController {
     /**
      * 获取指定菜单下的功能属性编码集合
      *
+     * @param response
      * @param menuId 菜单ID
      */
     @RequestMapping(value = "/menuAttribute_getAttribute")
-    public void getAttribute(String menuId){
+    public void getAttribute(HttpServletResponse response, String menuId){
         JSONObject json = new JSONObject();
         if (StringUtils.isNotBlank(menuId)) {
             List<MenuAttribute> menuAttributes = this.menuServiceImpl.queryMenuAttributeList(menuId, new MenuAttributeVo());

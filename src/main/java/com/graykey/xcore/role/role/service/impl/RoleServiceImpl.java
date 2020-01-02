@@ -105,7 +105,7 @@ public class RoleServiceImpl implements IRoleService {
                 predicateList.add(criteriaBuilder.like(root.get("roleName"), "%" + roleVo.getRoleName().trim() + "%"));
             }
             if (StringUtils.isNotBlank(roleVo.getRoleCode())) {
-                predicateList.add(criteriaBuilder.like(root.get("roleCode"), "%" + roleVo.getRoleCode().trim() + "%"));
+                predicateList.add(criteriaBuilder.equal(root.get("roleCode"), roleVo.getRoleCode().trim()));     //注: 此处条件不能改,为了 检查角色编码是否唯一
             }
             if (null != roleVo.getSmsValidation()) {
                 predicateList.add(criteriaBuilder.equal(root.get("smsValidation"), roleVo.getSmsValidation()));
@@ -130,6 +130,10 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public Set<Role> queryUserRoleList(String userId) {
+        User user = this.iUserDao.getOne(userId);
+        if (user != null && !user.getRoles().isEmpty()) {
+            return user.getRoles();
+        }
         return null;
     }
 

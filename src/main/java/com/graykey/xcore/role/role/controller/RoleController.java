@@ -47,7 +47,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/role_list")
     public String list(HttpServletRequest request, String menuCode) {
         request.setAttribute("menuCode", menuCode);
-        return "/page/xcore/role/role_list";
+        return "/page/xcore/role/role/role_list";
     }
 
     /**
@@ -81,7 +81,7 @@ public class RoleController extends BaseController {
             roleVo.setSmsValidation(2);
             request.setAttribute("roleVo", roleVo);
         }
-        return "/page/xcore/role/role_edit";
+        return "/page/xcore/role/role/role_edit";
     }
 
     /**
@@ -119,7 +119,7 @@ public class RoleController extends BaseController {
             BeanUtils.copyProperties(role, roleVo);
             request.setAttribute("roleVo", roleVo);
         }
-        return "/page/xcore/role/role_detail";
+        return "/page/xcore/role/role/role_detail";
     }
 
     /**
@@ -209,7 +209,7 @@ public class RoleController extends BaseController {
             }
             request.setAttribute("userIds", userIds);
         }
-        return "/page/xcore/role/role_relationUser";
+        return "/page/xcore/role/role/role_relationUser";
     }
 
     /**

@@ -2,12 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.graykey</groupId>
     <artifactId>xcore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -40,6 +42,11 @@
             </exclusions>
         </dependency>
 
+
+
+
+
+
         <!-- JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -55,6 +62,7 @@
             <scope>runtime</scope>
         </dependency>
 
+
         <!-- 支持jsp的maven依赖 -->
         <dependency>
             <!-- 支持自定义标签 -->
@@ -66,6 +74,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
+
 
         <!-- querydsl -->
         <dependency>
@@ -101,13 +110,6 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- slf4j 记录日志 -->
-        <!--<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.0-alpha1</version>
-        </dependency>-->
 
 
 
@@ -146,6 +148,10 @@
 
     <build>
         <plugins>
+            <!-- 添加spring-boot-maven-plugin插件
+            作用:该插件支持多种功能，常用的有两种，第一种是打包项目为可执行的jar包,另外
+                一个命令就是mvn spring-boot:run，可以直接使用tomcat（默认）启动项目。
+            -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

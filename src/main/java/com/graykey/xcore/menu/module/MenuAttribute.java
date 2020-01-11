@@ -91,7 +91,7 @@ public class MenuAttribute {
     }
 
     @ManyToMany(cascade={CascadeType.REFRESH})
-    @JoinTable(name = "um_role_menu_attribute", joinColumns = { @JoinColumn(name = "menuAttributeId") }, inverseJoinColumns = { @JoinColumn(name = "roleId") })
+    @JoinTable(name = "core_role_menu_attribute", joinColumns = { @JoinColumn(name = "menuAttributeId") }, inverseJoinColumns = { @JoinColumn(name = "roleId") })
     //@Cache(usage=CacheConcurrencyStrategy.READ_WRITE,region="urms_cache")
     public Set<Role> getRoles() {
         return roles;

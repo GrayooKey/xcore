@@ -14,7 +14,7 @@ import java.util.TreeSet;
  * @date 2019-12-07
  */
 @Entity
-//@org.hibernate.annotations.Table(comment = "行政区划", appliesTo = "core_areaCode")
+@org.hibernate.annotations.Table(comment = "行政区划", appliesTo = "core_areaCode")
 @Table(name = "core_areaCode")
 public class AreaCode extends BaseModule {
 

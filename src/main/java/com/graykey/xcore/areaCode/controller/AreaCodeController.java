@@ -101,24 +101,6 @@ public class AreaCodeController extends BaseController {
     }
 
     /**
-     * 详情页面
-     *
-     * @param request
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/areaCode_detail")
-    public String detail(HttpServletRequest request, String id) {
-        if (StringUtils.isNotBlank(id)) {
-            AreaCode areaCode = this.areaCodeServiceImpl.getEntityById(id);
-            AreaCodeVo areaCodeVo = new AreaCodeVo();
-            BeanUtils.copyProperties(areaCode, areaCodeVo);
-            request.setAttribute("areaCodeVo", areaCodeVo);
-        }
-        return "/page/xcore/areaCode/areaCode_detail";
-    }
-
-    /**
      * 删除
      *
      * @param response

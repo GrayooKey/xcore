@@ -147,24 +147,6 @@ public class CategoryController extends BaseController {
     }
 
     /**
-     * 详情页面     数据字典
-     *
-     * @param request
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/category_detail")
-    public String detail(HttpServletRequest request, String id) {
-        if (StringUtils.isNotBlank(id)) {
-            Category category = this.categoryServiceImpl.getEntityById(id);
-            CategoryVo categoryVo = new CategoryVo();
-            BeanUtils.copyProperties(category, categoryVo);
-            request.setAttribute("categoryVo", categoryVo);
-        }
-        return "/page/xcore/category/category_detail";
-    }
-
-    /**
      * 删除   数据字典
      *
      * @param response

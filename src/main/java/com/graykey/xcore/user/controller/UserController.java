@@ -246,7 +246,7 @@ public class UserController extends BaseController {
             }
             request.setAttribute("roleIds", roleIds);
         }
-        return "/page/urms/user/user/user_relationRole";
+        return "/page/xcore/user/user_relationRole";
     }
 
     /**

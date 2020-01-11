@@ -2,12 +2,22 @@ package com.graykey.xcore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * @SpringBootApplication ：等同于：@Configuration ，@EnableAutoConfiguration 和 @ComponentScan 三个配置
+ * @ServletComponentScan ： 注意：该注解加上后 拦截器失效;  去掉后 过滤器和监听器失效。
  */
+@ServletComponentScan
 @SpringBootApplication
-public class XcoreApplication {
+public class XcoreApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(XcoreApplication.class);
+    }
 
     /**
      * 程序入口

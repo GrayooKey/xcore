@@ -13,8 +13,8 @@ import java.util.Date;
  * @date 2019-10-15
  */
 @Entity
-@org.hibernate.annotations.Table(comment = "用户扩展表", appliesTo = "um_user_extend")
-@Table(name = "um_user_extend")
+@org.hibernate.annotations.Table(comment = "用户扩展表", appliesTo = "core_user_extend")
+@Table(name = "core_user_extend")
 public class UserExtend {
 
     private String id;                  // 主键id

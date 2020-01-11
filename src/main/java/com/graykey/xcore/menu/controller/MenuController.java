@@ -70,7 +70,7 @@ MenuController extends BaseController {
         if (list.get(3) != null) {
             request.setAttribute("fiveList", list.get(3));
         }
-        return "/page/common/menuIndex";
+        return "/page/xcore/menu/menuIndex";
     }
 
     /**
@@ -340,24 +340,6 @@ MenuController extends BaseController {
         } finally {
             this.print(json.toString());
         }
-    }
-
-    /**
-     * 菜单 详情页面
-     *
-     * @param request
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/menu_detail")
-    public String detail(HttpServletRequest request, String id) {
-        if (StringUtils.isNotBlank(id)) {
-            Menu menu = this.menuServiceImpl.getEntityById(id);
-            MenuVo menuVo = new MenuVo();
-            BeanUtils.copyProperties(menu, menuVo);
-            request.setAttribute("menuVo", menuVo);
-        }
-        return "/page/xcore/menu/menu_detail";
     }
 
     /**
